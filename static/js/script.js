@@ -1,5 +1,5 @@
 /*
-    jQuery for MaterializeCSS initialization
+    jQuery for MaterializeCSS initialization ( Media Slider ) 
 */
 
 $(document).ready(function(){

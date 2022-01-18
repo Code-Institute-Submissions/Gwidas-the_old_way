@@ -21,7 +21,8 @@
             <a href="{{ url_for('home') }}" class="brand-logo">
             <i class="material-icons" style= "font-size: 60px;">local_dining</i>The Old Way
             </a> 
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
+            <ul class="right hide-on-med-and-down">
             <li><a href="{{ url_for('home') }}">Home</a></li>
             {% if session.user %}
             <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>

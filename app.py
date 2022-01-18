@@ -26,6 +26,10 @@ def get_recipes():
     recipes = mongo.db.recipes.find()
     return render_template("recipes.html", recipes=recipes)
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
 @app.route("/home")
 def home():
     return render_template("home.html")
@@ -95,6 +99,10 @@ def profile(username):
         return render_template("profile.html", username=username)
 
     return redirect(url_for("login"))
+
+@app.route("/create")
+def create():
+    return render_template("create.html")
 
 @app.route("/logout")
 def logout():

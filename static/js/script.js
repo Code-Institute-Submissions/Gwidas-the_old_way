@@ -1,5 +1,5 @@
 /*
-    jQuery for MaterializeCSS initialization ( Media Slider ) 
+    jQuery for MaterializeCSS initialization  
 */
 
 $(document).ready(function(){
@@ -9,3 +9,10 @@ $(document).ready(function(){
   $(document).ready(function(){
     $('.parallax').parallax();
   });
+
+  $(document).ready(function() {
+    M.updateTextFields();
+  });
+
+  $('#textarea1').val('');
+  M.textareaAutoResize($('#textarea1'));

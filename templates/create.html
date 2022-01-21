@@ -1,81 +1,63 @@
 {% extends "base.html" %}
 {% block content %}
-<!--<body>
-    <div class="container">
-      <h2>Create a Recipe</h2>
-      <div class="row">
-        <form class="col s12">
-          <div class="row">
-            <div class="input-field col s6">
-              <i class="material-icons prefix">account_circle</i>
-              <input id="icon_prefix" type="text" class="validate">
-              <label for="icon_prefix">Title</label>
-            </div>
-            <div class="row">
-                <form class="col s12">
-                  <div class="row">
-                    <div class="input-field col s6">
-                      <textarea id="textarea1" class="materialize-textarea"></textarea>
-                      <label for="textarea1">Brief description of the recipe</label>
-                    </div>
-                  </div>
-                </form>
-            </div>
-            <div class="input-field col s6">
-                <i class="material-icons prefix">phone</i>
-                <input id="icon_telephone" type="tel" class="validate">
-                <label for="icon_telephone">Telephone</label>
-            </div>
-            <div class="input-field col s6">
-                <i class="material-icons prefix">phone</i>
-                <input id="icon_telephone" type="tel" class="validate">
-                <label for="icon_telephone">Telephone</label>
-              </div>
-    </div>
-</body>-->
-<body class="create-background">
-<h3>Create Bread</h3>
+
+<h1>Add Bread Recipe</h1>
+
 <div class="row">
-    <div class="input-field col s6">
-      <input value="" id="first_name2" type="text" class="validate">
-      <label class="active" for="first_name2">Title</label>
+  <form class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea id="textarea1" class="materialize-textarea"></textarea>
+        <label for="textarea1">Title</label>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="row">
+  <form class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea id="textarea1" class="materialize-textarea"></textarea>
+        <label for="textarea1">Description</label>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="row">
+  <form class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea id="textarea1" class="materialize-textarea"></textarea>
+        <label for="textarea1">Ingridients</label>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="row">
+  <form class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea id="textarea1" class="materialize-textarea"></textarea>
+        <label for="textarea1">Steps</label>
+      </div>
+    </div>
+  </form>
+</div>
+
+<form action="#">
+  <div class="file-field input-field">
+    <div class="btn">
+      <span>Image</span>
+      <input type="file">
+    </div>
+    <div class="file-path-wrapper">
+      <input class="file-path validate" type="text">
     </div>
   </div>
-    <div class="row">
-        <form class="col s12">
-          <div class="row">
-            <div class="input-field col s6">
-              <textarea id="textarea1" class="materialize-textarea"></textarea>
-              <label for="textarea1">Brief description of the recipe</label>
-            </div>
-          </div>
-        </form>
-    </div>
-    <!--<div class="input-field col s6 field-input">
-        <i class="material-icons prefix">av_timer</i>
-        <input id="icon_telephone" type="tel" class="validate">
-        <label for="icon_telephone">How long to make</label>
-    </div>
-    <div class="input-field col s6 field-input">
-        <i class="material-icons prefix">group</i>
-        <input id="icon_telephone" type="tel" class="validate">
-        <label for="icon_telephone">How many servings</label>
-    </div>-->
-<h4>Ingredients</h4>
-<div class="input-field col s6 field-input">
-    <i class="material-icons prefix">local_drink</i>
-    <input id="icon_telephone" type="tel" class="validate">
-    <label for="icon_telephone">First Ingredient</label>
-</div>
-<a class="waves-effect waves-light btn">+ add</a>
-<h4>Steps</h4>
-<div class="input-field col s6 field-input">
-    <i class="material-icons prefix">linear_scale</i>
-    <input id="icon_telephone" type="tel" class="validate">
-    <label for="icon_telephone">First Step</label>
-</div>
-<a class="waves-effect waves-light btn">+ add</a>
-</body>
+</form>
 
-
+<a class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">add</i></a>
 {% endblock %}

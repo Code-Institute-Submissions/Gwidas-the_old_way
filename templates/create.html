@@ -4,50 +4,49 @@
 <h1>Add Bread Recipe</h1>
 
 <div class="row">
-  <form class="col s12">
+  <form class="col s12" method="POST" action="{{ url_for('create') }}">
     <div class="row">
       <div class="input-field col s12">
         <textarea id="textarea1" class="materialize-textarea"></textarea>
         <label for="textarea1">Title</label>
       </div>
     </div>
-  </form>
 </div>
 
 <div class="row">
-  <form class="col s12">
+  
     <div class="row">
       <div class="input-field col s12">
         <textarea id="textarea1" class="materialize-textarea"></textarea>
         <label for="textarea1">Description</label>
       </div>
     </div>
-  </form>
+  
 </div>
 
 <div class="row">
-  <form class="col s12">
+  
     <div class="row">
       <div class="input-field col s12">
         <textarea id="textarea1" class="materialize-textarea"></textarea>
         <label for="textarea1">Ingridients</label>
       </div>
     </div>
-  </form>
+  
 </div>
 
 <div class="row">
-  <form class="col s12">
+  
     <div class="row">
       <div class="input-field col s12">
         <textarea id="textarea1" class="materialize-textarea"></textarea>
         <label for="textarea1">Steps</label>
       </div>
     </div>
-  </form>
+  
 </div>
 
-<form action="#">
+
   <div class="file-field input-field">
     <div class="btn">
       <span>Image</span>
@@ -57,7 +56,15 @@
       <input class="file-path validate" type="text">
     </div>
   </div>
-</form>
 
-<a class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">add</i></a>
+
+<div class="row">
+  <div class="col s12 center-align">
+      <button type="submit" class="btn-large black darken-1 text-shadow">
+          Add Recipe <i class="fas fa-plus-square right"></i>
+      </button>
+    </div>
+  </form>
+</div>
+
 {% endblock %}

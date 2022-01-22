@@ -133,9 +133,11 @@ def add_recipe():
             "title": request.form.get("title"),
             "description": request.form.get("description"),
             "ingredients": request.form.get("ingredients"),
-            "file": request.form.get("file"),
+            "image": request.form.get("image"),
             "created_by": session["user"],
         }
+
+        
         mongo.db.recipes.insert_one(recipe)
         flash("Recipe is successfully added")
         return redirect(url_for("profile", username=session["user"]))
@@ -143,6 +145,7 @@ def add_recipe():
     # Find categories from db
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("recipes/create.html", categories=categories)
+
 
 
 @app.route("/logout")

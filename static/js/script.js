@@ -17,4 +17,8 @@ $(document).ready(function(){
   $('#textarea1').val('');
   M.textareaAutoResize($('#textarea1'));
 
+  $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+
   

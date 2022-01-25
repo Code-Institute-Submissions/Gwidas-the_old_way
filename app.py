@@ -22,9 +22,6 @@ def root():
     return render_template("home.html")
 
 
-
-
-
 @app.route("/about")
 def about():
     return render_template("about.html")
@@ -111,10 +108,6 @@ def profile(username):
     return redirect(url_for("login"))
 
 
-
-
-
-
 # Search engine <---test
 """@app.route("/recipe/<recipe_id>")
 def recipe(recipe_id):
@@ -125,7 +118,19 @@ def recipe(recipe_id):
     if not recipe:
         return render_template("error_handlers/404.html")
 
-    return render_template("recipes/recipe.html", recipe=recipe)"""
+    return render_template("recipe.html", recipe=recipe)"""
+
+
+@app.route("/recipe/<recipe_id>")
+def recipe(recipe_id):
+    # Find recipe on the basis of id
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+
+    # recipe id don't exist, show 404 error
+    if not recipe:
+        return render_template("error_handlers/404.html")
+
+    return render_template("recipes/recipe.html", recipe=recipe)
 
 
 # Create Recipe
@@ -155,6 +160,7 @@ def add_recipe():
         flash("Recipe is successfully added")
         return redirect(url_for("profile", username=session["user"]))
 
+
 # Edit Recipe <--Test
 """@app.route("edit_recipe/<recipe_id>" , methods=["GET", "POST"])
 def edit_recipe(recipe_id):
@@ -178,11 +184,6 @@ def edit_recipe(recipe_id):
 
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     return render_template("recipes/edit_recipes" , recipe=recipe,)"""
-
-
-
-
-    
 
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])

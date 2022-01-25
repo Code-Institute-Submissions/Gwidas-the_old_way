@@ -162,7 +162,7 @@ def add_recipe():
 
 
 # Edit Recipe <--Test
-"""@app.route("edit_recipe/<recipe_id>" , methods=["GET", "POST"])
+@app.route("/edit_recipe/<recipe_id>" , methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     # Only users can add recipes
     if not session.get("user"):
@@ -183,32 +183,10 @@ def edit_recipe(recipe_id):
         return redirect(url_for("profile", username=session["user"]))
 
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    return render_template("recipes/edit_recipes" , recipe=recipe,)"""
+    return render_template("recipes/edit_recipes" , recipe=recipe,)
 
 
-@app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
-def edit_recipe(recipe_id):
-    # Only users can edit recipes
-    if not session.get("user"):
-        return render_template("error_handlers/404.html")
 
-    # Edit recipe to db
-    if request.method == "POST":
-        edited = {
-            "title": request.form.get("title"),
-            "description": request.form.get("description"),
-            "ingredients": request.form.get("ingredients"),
-            "image": request.form.get("image"),
-            "created_by": session["user"],
-        }
-        mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, edited)
-        flash("Recipe is successfully edited")
-        return redirect(url_for("profile", username=session["user"]))
-
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    return render_template(
-        "recipes/edit_recipe.html", recipe=recipe, categories=categories
-    )
 
 
 @app.route("/delete_recipe/<recipe_id>")

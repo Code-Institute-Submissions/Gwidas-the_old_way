@@ -32,9 +32,7 @@ def home():
     return render_template("home.html")
 
 
-@app.route("/recipes")
-def recipes():
-    return render_template("recipes.html")
+
 
 
 @app.route("/add_recipe")
@@ -108,30 +106,24 @@ def profile(username):
     return redirect(url_for("login"))
 
 
-# Search engine <---test
-"""@app.route("/recipe/<recipe_id>")
-def recipe(recipe_id):
-    # Find recipe on the basis of id
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-
-    # recipe id don't exist, show 404 error
-    if not recipe:
-        return render_template("error_handlers/404.html")
-
-    return render_template("recipe.html", recipe=recipe)"""
 
 
-@app.route("/recipe/<recipe_id>")
-def recipe(recipe_id):
-    # Find recipe on the basis of id
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+ # <---------------------- Recipes ------------------->
+@app.route("/recipes")
+def recipes():
+    return render_template("recipes.html")
 
-    # recipe id don't exist, show 404 error
-    if not recipe:
-        return render_template("error_handlers/404.html")
 
-    return render_template("recipes/recipe.html", recipe=recipe)
 
+@app.route("/get_recipes")
+def get_recipes():
+    recipes = mongo.db.recipes.find()
+    return render_template("recipes.html", recipes=recipes)
+
+
+
+
+    
 
 # Create Recipe
 @app.route(
@@ -159,43 +151,6 @@ def add_recipe():
         mongo.db.recipes.insert_one(recipe)
         flash("Recipe is successfully added")
         return redirect(url_for("profile", username=session["user"]))
-
-
-# Edit Recipe <--Test
-@app.route("/edit_recipe/<recipe_id>" , methods=["GET", "POST"])
-def edit_recipe(recipe_id):
-    # Only users can add recipes
-    if not session.get("user"):
-        return render_template("error_handlers/404.html")
-
-    # Adding recipe to db
-    if request.method == "POST":
-        recipe = {
-            "title": request.form.get("title"),
-            "description": request.form.get("description"),
-            "ingredients": request.form.get("ingredients"),
-            "image": request.form.get("image"),
-            "created_by": session["user"],
-        }
-
-        mongo.db.recipes.update({"_id": ObjectId(recipe_id)})
-        flash("Recipe is successfully added")
-        return redirect(url_for("profile", username=session["user"]))
-
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    return render_template("recipes/edit_recipes" , recipe=recipe,)
-
-
-
-
-
-@app.route("/delete_recipe/<recipe_id>")
-def delete_recipe(recipe_id):
-    # Delete recipe from db
-    mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
-    flash("Recipe is succesfully deleted")
-    return redirect(url_for("profile", username=session["user"]))
-
 
 @app.route("/logout")
 def logout():

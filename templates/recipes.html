@@ -3,14 +3,22 @@
 
 <h2>This is recipe page </h2>
 
-    {% for recipe in recipes %}
-        {{ recipe.title }}<br>
-        {{ recipe.description }}<br>
-        {{ recipe.ingredients }}<br>
-        {{ recipe.steps }}<br>
-        {{ recipe.image }}<br>
-        {{ recipe.created_by }}<br>
-    {% endfor %}
+<div class="container">
+    <div class="row">
+        <div class="col s12 m6">
+          <div class="card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1515189703465-7a8ee3f0146c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80">
+              <span class="card-title">Test</span>
+              <a class="btn-floating halfway-fab waves-effect waves-light black"><i class="material-icons">add</i></a>
+            </div>
+            <div class="card-content">
+              <p>This is a test</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
     
     
     

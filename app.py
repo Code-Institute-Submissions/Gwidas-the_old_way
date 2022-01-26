@@ -17,10 +17,6 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
-@app.route("/")
-def root():
-    return render_template("home.html")
-
 
 @app.route("/about")
 def about():
@@ -30,8 +26,6 @@ def about():
 @app.route("/home")
 def home():
     return render_template("home.html")
-
-
 
 
 
@@ -117,13 +111,23 @@ def recipes():
 
 @app.route("/get_recipes")
 def get_recipes():
-    recipes = mongo.db.recipes.find()
+    recipes = list(mongo.db.recipes.find())
     return render_template("recipes.html", recipes=recipes)
 
 
+@app.route("/recipe/<recipe_id>")
+def recipe(recipe_id):
+    # Find recipe on the basis of id
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+
+    # recipe id don't exist, show 404 error
+    if not recipe:
+        return render_template("error_handlers/404.html")
+
+    return render_template("recipe.html", recipe=recipe)
 
 
-    
+
 
 # Create Recipe
 @app.route(

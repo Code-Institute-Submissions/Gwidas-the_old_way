@@ -149,12 +149,9 @@ def add_recipe():
             "created_by": session["user"],
         }
         
-        mongo.db.recipes.insert_one(recipe)
+        mongo.db.recipes.insert_one(recipes)
         flash("Recipe is successfully added")
         return redirect(url_for("profile", username=session["user"]))
-
-        recipes = mongo.db.categories.find().sort("recipe_name", 1)
-        return render_template("add_recipe.html", recipes=recipes)
     
 
 @app.route("/logout")

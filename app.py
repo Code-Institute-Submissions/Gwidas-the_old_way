@@ -16,6 +16,15 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+@app.route("/")
+def root():
+    return render_template("home.html")
+
+
+@app.route("/get_recipes")
+def get_recipes():
+    recipes = mongo.db.recipes.find()
+    return render_template("recipes.html", recipes=recipes)
 
 
 @app.route("/about")
@@ -28,10 +37,9 @@ def home():
     return render_template("home.html")
 
 
-
-@app.route("/add_recipe")
-def create():
-    return render_template("add_recipe.html")
+@app.route("/recipes")
+def recipes():
+    return render_template("recipes.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -103,17 +111,6 @@ def profile(username):
 
 
  # <---------------------- Recipes ------------------->
-@app.route("/recipes")
-def recipes():
-    return render_template("recipes.html")
-
-
-
-@app.route("/get_recipes")
-def get_recipes():
-    recipes = list(mongo.db.recipes.find())
-    return render_template("recipes.html", recipes=recipes)
-
 
 @app.route("/recipe/<recipe_id>")
 def recipe(recipe_id):
@@ -151,10 +148,14 @@ def add_recipe():
             "image": request.form.get("image"),
             "created_by": session["user"],
         }
-
+        
         mongo.db.recipes.insert_one(recipe)
         flash("Recipe is successfully added")
         return redirect(url_for("profile", username=session["user"]))
+
+        recipes = mongo.db.categories.find().sort("recipe_name", 1)
+        return render_template("add_recipe.html", recipes=recipes)
+    
 
 @app.route("/logout")
 def logout():
@@ -166,5 +167,5 @@ def logout():
 
 if __name__ == "__main__":
     app.run(
-        host=os.environ.get("IP"), port=int(os.environ.get("PORT")), debug=False
+        host=os.environ.get("IP"), port=int(os.environ.get("PORT")), debug=True
     )  

@@ -16,15 +16,13 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+
 @app.route("/")
 def root():
     return render_template("home.html")
 
 
-@app.route("/get_recipes")
-def get_recipes():
-    recipes = mongo.db.recipes.find()
-    return render_template("recipes.html", recipes=recipes)
+
 
 
 @app.route("/about")
@@ -40,6 +38,11 @@ def home():
 @app.route("/recipes")
 def recipes():
     return render_template("recipes.html")
+
+
+@app.route("/add_recipe")
+def create():
+    return render_template("add_recipe.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -110,9 +113,10 @@ def profile(username):
 
 
 
- # <---------------------- Recipes ------------------->
 
-@app.route("/recipe/<recipe_id>")
+
+# Search engine <---test
+"""@app.route("/recipe/<recipe_id>")
 def recipe(recipe_id):
     # Find recipe on the basis of id
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
@@ -121,9 +125,7 @@ def recipe(recipe_id):
     if not recipe:
         return render_template("error_handlers/404.html")
 
-    return render_template("recipe.html", recipe=recipe)
-
-
+    return render_template("recipes/recipe.html", recipe=recipe)"""
 
 
 # Create Recipe
@@ -148,11 +150,73 @@ def add_recipe():
             "image": request.form.get("image"),
             "created_by": session["user"],
         }
-        
-        mongo.db.recipes.insert_one(recipes)
+
+        mongo.db.recipes.insert_one(recipe)
         flash("Recipe is successfully added")
         return redirect(url_for("profile", username=session["user"]))
+
+# Edit Recipe <--Test
+"""@app.route("edit_recipe/<recipe_id>" , methods=["GET", "POST"])
+def edit_recipe(recipe_id):
+    # Only users can add recipes
+    if not session.get("user"):
+        return render_template("error_handlers/404.html")
+
+    # Adding recipe to db
+    if request.method == "POST":
+        recipe = {
+            "title": request.form.get("title"),
+            "description": request.form.get("description"),
+            "ingredients": request.form.get("ingredients"),
+            "image": request.form.get("image"),
+            "created_by": session["user"],
+        }
+
+        mongo.db.recipes.update({"_id": ObjectId(recipe_id)})
+        flash("Recipe is successfully added")
+        return redirect(url_for("profile", username=session["user"]))
+
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    return render_template("recipes/edit_recipes" , recipe=recipe,)"""
+
+
+
+
     
+
+
+@app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
+def edit_recipe(recipe_id):
+    # Only users can edit recipes
+    if not session.get("user"):
+        return render_template("error_handlers/404.html")
+
+    # Edit recipe to db
+    if request.method == "POST":
+        edited = {
+            "title": request.form.get("title"),
+            "description": request.form.get("description"),
+            "ingredients": request.form.get("ingredients"),
+            "image": request.form.get("image"),
+            "created_by": session["user"],
+        }
+        mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, edited)
+        flash("Recipe is successfully edited")
+        return redirect(url_for("profile", username=session["user"]))
+
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    return render_template(
+        "recipes/edit_recipe.html", recipe=recipe, categories=categories
+    )
+
+
+@app.route("/delete_recipe/<recipe_id>")
+def delete_recipe(recipe_id):
+    # Delete recipe from db
+    mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
+    flash("Recipe is succesfully deleted")
+    return redirect(url_for("profile", username=session["user"]))
+
 
 @app.route("/logout")
 def logout():
@@ -164,5 +228,5 @@ def logout():
 
 if __name__ == "__main__":
     app.run(
-        host=os.environ.get("IP"), port=int(os.environ.get("PORT")), debug=False
-    )  
+        host=os.environ.get("IP"), port=int(os.environ.get("PORT")), debug=True
+    )  # <--- Change to "False" when ready to submit project

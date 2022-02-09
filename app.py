@@ -23,8 +23,6 @@ def root():
 
 
 
-
-
 @app.route("/about")
 def about():
     return render_template("about.html")
@@ -35,9 +33,7 @@ def home():
     return render_template("home.html")
 
 
-@app.route("/recipes")
-def recipes():
-    return render_template("recipes.html")
+
 
 
 @app.route("/add_recipe")
@@ -100,32 +96,39 @@ def login():
     return render_template("login.html")
 
 
+
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
+    # Only users can acces profile
+    if not session.get("user"):
+        return render_template("error_handlers/404.html")
+
     # grab the session user's username from db
-    username = mongo.db.users.find_one({"username": session["user"]})["username"]
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
 
     if session["user"]:
-        return render_template("profile.html", username=username)
-
+        # Admin has acces to all recipes
+        if session["user"] == "admin":
+            user_recipes = list(mongo.db.recipes.find())
+        else:
+            # user sees own recipes
+            user_recipes = list(
+                mongo.db.recipes.find({"created_by": session["user"]}))
+        return render_template(
+            "profile.html", username=username, user_recipes=user_recipes)
     return redirect(url_for("login"))
 
 
 
 
+@app.route("/recipes", methods=["GET"])
+def recipes():
+    """ fetching data from db """
+    recipesdb = list(mongo.db.recipes.find())
+    print("hello")
+    return render_template("recipes.html", recipes=recipesdb)
 
-
-# Search engine <---test
-"""@app.route("/recipe/<recipe_id>")
-def recipe(recipe_id):
-    # Find recipe on the basis of id
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-
-    # recipe id don't exist, show 404 error
-    if not recipe:
-        return render_template("error_handlers/404.html")
-
-    return render_template("recipes/recipe.html", recipe=recipe)"""
 
 
 # Create Recipe
@@ -155,67 +158,6 @@ def add_recipe():
         flash("Recipe is successfully added")
         return redirect(url_for("profile", username=session["user"]))
 
-# Edit Recipe <--Test
-"""@app.route("edit_recipe/<recipe_id>" , methods=["GET", "POST"])
-def edit_recipe(recipe_id):
-    # Only users can add recipes
-    if not session.get("user"):
-        return render_template("error_handlers/404.html")
-
-    # Adding recipe to db
-    if request.method == "POST":
-        recipe = {
-            "title": request.form.get("title"),
-            "description": request.form.get("description"),
-            "ingredients": request.form.get("ingredients"),
-            "image": request.form.get("image"),
-            "created_by": session["user"],
-        }
-
-        mongo.db.recipes.update({"_id": ObjectId(recipe_id)})
-        flash("Recipe is successfully added")
-        return redirect(url_for("profile", username=session["user"]))
-
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    return render_template("recipes/edit_recipes" , recipe=recipe,)"""
-
-
-
-
-    
-
-
-@app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
-def edit_recipe(recipe_id):
-    # Only users can edit recipes
-    if not session.get("user"):
-        return render_template("error_handlers/404.html")
-
-    # Edit recipe to db
-    if request.method == "POST":
-        edited = {
-            "title": request.form.get("title"),
-            "description": request.form.get("description"),
-            "ingredients": request.form.get("ingredients"),
-            "image": request.form.get("image"),
-            "created_by": session["user"],
-        }
-        mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, edited)
-        flash("Recipe is successfully edited")
-        return redirect(url_for("profile", username=session["user"]))
-
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    return render_template(
-        "recipes/edit_recipe.html", recipe=recipe, categories=categories
-    )
-
-
-@app.route("/delete_recipe/<recipe_id>")
-def delete_recipe(recipe_id):
-    # Delete recipe from db
-    mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
-    flash("Recipe is succesfully deleted")
-    return redirect(url_for("profile", username=session["user"]))
 
 
 @app.route("/logout")

@@ -1,0 +1,7 @@
+{% for recipe in recipes %}
+        {{ recipe.title }}<br>
+        {{ recipe.description }}<br>
+        {{ recipe.ingredients }}<br>
+        {{ recipe.image }}<br>
+        {{recipe.created_by}}<br>
+    {% endfor %}

@@ -4,21 +4,12 @@
 
 $(document).ready(function(){
     $('.slider').slider();
-  });
-
-  $(document).ready(function(){
     $('.parallax').parallax();
-  });
-
-  $(document).ready(function() {
+    $('.collapsible').collapsible();
+    $(".sidenav").sidenav({edge: "right"});
     M.updateTextFields();
   });
 
-
-  $(document).ready(function(){
-    $('.collapsible').collapsible();
-  });
-
-  $(".sidenav").sidenav({edge: "right"});
+ 
 
   

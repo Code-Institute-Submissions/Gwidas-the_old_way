@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-
+<!--Wellcoming message-->
     <div class="row">
         <div class="col s12 m8 offset-m2">
             <div class="card-panel">
@@ -10,27 +10,27 @@
             </div>
         </div>
     </div>
+    <!--end-->
     
-    <div class="row">
-        <div class="col s12 m7">
-          <div class="card">
-            <div class="card-image">
-              <img src="https://images.unsplash.com/photo-1523314832514-41a5cbaefa51?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80">
-              <h5>Test</h5>
-
-
-
-              <span class="card-title">Card Title</span>
-            </div>
-            <div class="card-content">
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-            </div>
-          </div>
-        </div>
+<div class="container">
+    <div class="card">
+      <div class="card-image waves-effect waves-block waves-light">
+        <img class="activator" src="https://images.unsplash.com/photo-1541838682688-df8fea24e43c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80">
       </div>
+      <div class="card-content">
+        <span class="card-title activator grey-text text-darken-4">Bread<i class="material-icons right">more_vert</i></span>
+        <p><a href="#">This is a link</a></p>
+      </div>
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+        <p>Here is some more information about this product that is only revealed once clicked on.</p>
+        <a class="waves-effect waves-light btn black"><i class="material-icons left">cloud</i>Edit</a>
+        <a class="waves-effect waves-light btn black"><i class="material-icons left" >cloud</i>Delete</a>
+        <button class="btn waves-effect waves-light black" type="submit" name="action">Update
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </div>
+</div>
 
 {% endblock %}

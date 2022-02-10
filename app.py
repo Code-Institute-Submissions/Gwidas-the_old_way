@@ -33,9 +33,6 @@ def home():
     return render_template("home.html")
 
 
-
-
-
 @app.route("/add_recipe")
 def create():
     return render_template("add_recipe.html")
@@ -99,6 +96,7 @@ def login():
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
+    """fetch data from mongodb"""
     # Only users can acces profile
     if not session.get("user"):
         return render_template("error_handlers/404.html")

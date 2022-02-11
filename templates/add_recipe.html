@@ -2,7 +2,6 @@
 {% block content %}
 
 <h1>Add Bread Recipe</h1>
-
 <div class="row">
   <form class="col s12" method="POST" action="{{ url_for('add_recipe') }}">
     <div class="row">
@@ -48,12 +47,9 @@
 
 
   <div class="file-field input-field">
-    <div class="btn black">
-      <span>Image</span>
-      <input type="file">
-    </div>
     <div class="file-path-wrapper">
-      <input class="file-path validate" name="image" type="text" required>
+      <label for="textarea1">Image_url</label>
+      <input id="image" name="image" type="url" pattern="https?://.+" class="validate" required>
     </div>
   </div>
 

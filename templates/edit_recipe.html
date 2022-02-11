@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Edit Bread Recipe</h1>
+<h1>Edit Recipe</h1>
 
 <div class="row">
   <form class="col s12" method="POST" action="{{ url_for('edit_recipe', resipe_id=resipe._id) }}">
     <div class="row">
       <div class="input-field col s12">
         <textarea id="textarea1" name="title" class="materialize-textarea" required></textarea>
-        <input id="recipe_name" name="recipe_name" value="{{recipe.recipe_name}}" type="text" pattern="^[^\s][A-Za-z0-9\s]{1,20}$" class="validate" required>
+        <input id="recipe_name" name="recipe_name" value="{{recipes.title}}" type="text" pattern="^[^\s][A-Za-z0-9\s]{1,20}$" class="validate" required>
         <label for="textarea1">Title</label>
       </div>
     </div>
@@ -18,6 +18,7 @@
   
     <div class="row">
       <div class="input-field col s12">
+        <input id="description" name="description" value="{{recipes.description}}" type="text" pattern="^[1-9][0-9]*$" class="validate" required>
         <textarea id="textarea1" name="description" class="materialize-textarea" required></textarea>
         <label for="textarea1">Description</label>
       </div>
@@ -29,7 +30,9 @@
   
     <div class="row">
       <div class="input-field col s12">
-        <textarea id="textarea1" name="ingredients" class="materialize-textarea" required></textarea>
+        <textarea id="textarea1" name="ingredients" class="materialize-textarea" required>
+          {{- recipes.ingredients -}}
+        </textarea>
         <label for="textarea1">Ingridients</label>
       </div>
     </div>
@@ -40,7 +43,9 @@
   
     <div class="row">
       <div class="input-field col s12">
-        <textarea id="textarea1" name="steps" class="materialize-textarea" required></textarea>
+        <textarea id="textarea1" name="steps" class="materialize-textarea" required>
+          {{- recipes.steps -}}
+        </textarea>
         <label for="textarea1">Steps</label>
       </div>
     </div>
@@ -50,11 +55,11 @@
 
   <div class="file-field input-field">
     <div class="btn">
-      <span>Image</span>
+      <span  data-error="enter valid URL">Image_url</span>
       <input type="file">
     </div>
     <div class="file-path-wrapper">
-      <input class="file-path validate" name="image" type="text" required>
+      <input id="image" name="image" value="{{recipes.image}}" type="url" pattern="https?://.+" class="validate" required>
     </div>
   </div>
 

@@ -163,6 +163,38 @@ def add_recipe():
         return redirect(url_for("profile", username=session["user"]))
 
 
+@app.route(
+    "/edit_recipe/<recipe_id>",
+    methods=[
+        "GET",
+        "POST",
+    ],
+)
+def edit_recipe(recipe_id):
+    # Only users can add recipes
+    if not session.get("user"):
+        return render_template("error_handlers/404.html")
+
+    # Adding recipe to db
+    if request.method == "POST":
+        edit = {
+            "title": request.form.get("title"),
+            "description": request.form.get("description"),
+            "ingredients": request.form.get("ingredients"),
+            "image": request.form.get("image"),
+            "created_by": session["user"],
+        }
+
+        mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, edit)
+        flash("Recipe is successfully edited")
+        return redirect(url_for("profile", username=session["user"]))
+
+        recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+        return render_template("recipes/edit_recipe.html", recipe=recipe)
+        
+
+
+
 
 @app.route("/logout")
 def logout():

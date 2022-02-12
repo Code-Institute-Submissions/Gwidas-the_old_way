@@ -189,8 +189,8 @@ def edit_recipe(recipe_id):
         flash("Recipe is successfully edited")
         return redirect(url_for("profile", username=session["user"]))
 
-        recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-        return render_template("recipes/edit_recipe.html", recipe=recipe)
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    return render_template("edit_recipe.html", recipe=recipe)
         
 
 

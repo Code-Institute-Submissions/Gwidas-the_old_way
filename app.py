@@ -16,30 +16,35 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
-
+# Nav to pages
 @app.route("/")
 def root():
+    """ User is able to navigate to home page """
     return render_template("home.html")
 
 
 
 @app.route("/about")
 def about():
+    """ User is able to navigate to about page """
     return render_template("about.html")
 
 
 @app.route("/home")
 def home():
+    """ User is able to navigate to home page """
     return render_template("home.html")
 
 
 @app.route("/add_recipe")
 def create():
+    """ User is able to navigate to add recipe page """
     return render_template("add_recipe.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    """ User is able to register """
     if request.method == "POST":
         # check if username already exists in db
         existing_user = mongo.db.users.find_one(
@@ -66,6 +71,7 @@ def register():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    """ User is able to log in  """
     if request.method == "POST":
         # check if username exists in db
         existing_user = mongo.db.users.find_one(
@@ -120,6 +126,7 @@ def profile(username):
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
+    """ User is able to search recipe page """
     query = request.form.get("query")
     recipes_search = list(mongo.db.recipes.find({"$text": {"$search": query}}))
     return render_template("recipes.html", recipes=recipes_search)
@@ -144,6 +151,7 @@ def recipes():
     ],
 )
 def add_recipe():
+    """ User is able to add recipes """
     # Only users can add recipes
     if not session.get("user"):
         return render_template("error_handlers/404.html")
@@ -172,11 +180,12 @@ def add_recipe():
     ],
 )
 def edit_recipe(recipe_id):
-    # Only users can add recipes
+    """ User is able to edit recipes """
+    # Only registered users can add recipes
     if not session.get("user"):
         return render_template("error_handlers/404.html")
 
-    # Adding recipe to db
+    # edit recipe in mongodb
     if request.method == "POST":
         edit = {
             "title": request.form.get("title"),
@@ -191,15 +200,22 @@ def edit_recipe(recipe_id):
         flash("Recipe is successfully edited")
         return redirect(url_for("profile", username=session["user"]))
 
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    return render_template("edit_recipe.html", recipe=recipe)
+    recipe_ed = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    return render_template("edit_recipe.html", edit=recipe_ed, recipe=recipe_ed)
         
 
-
+@app.route("/delete_recipe/<recipe_id>")
+def delete_recipe(recipe_id):
+    """ User is able to delete a recipe """
+    # Delete recipe from mongodb
+    mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
+    flash("Recipe is succesfully deleted")
+    return redirect(url_for("profile", username=session['user']))
 
 
 @app.route("/logout")
 def logout():
+    """ User is able to log out """
     # remove user from session cookie
     flash("You have been logged out")
     session.pop("user")

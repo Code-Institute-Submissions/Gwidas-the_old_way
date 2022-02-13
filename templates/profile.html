@@ -10,8 +10,9 @@
             </div>
         </div>
     </div>
-    <!--end-->
-    
+<!--Wellcoming message END-->
+
+<!-- Recipes of a user -->
 <div class="container">
   {% for recipe in user_recipes %}
   <div class="row">
@@ -29,8 +30,8 @@
         <p>{{ recipe.ingredients }}</p>
         <p>{{ recipe.steps }}</p>
         <p>{{ recipe.created_by }}</p>
-        <a class="waves-effect waves-light btn black"><i class="material-icons left" href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}">cloud</i>Edit</a>
-        <a class="waves-effect waves-light btn black"><i class="material-icons left" >cloud</i>Delete</a>
+        <a class="waves-effect waves-light btn black" href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}"><i class="material-icons left">cloud</i>Edit</a>
+        <a class="waves-effect waves-light btn black" href="{{ url_for('delete_recipe', recipe_id=recipe._id)}}"><i class="material-icons left" >cloud</i>Delete</a>
         <button class="btn waves-effect waves-light black" type="submit" name="action">Update
           <i class="material-icons right">send</i>
         </button>
@@ -39,5 +40,5 @@
   </div>
     {% endfor %}
 </div>
-
+<!-- Recipes of a user END -->
 {% endblock %}

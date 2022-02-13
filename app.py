@@ -126,10 +126,11 @@ def profile(username):
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    """ User is able to search recipe page """
+    """ User able to search recipes """
+    # Search for recipes based on query
     query = request.form.get("query")
-    recipes_search = list(mongo.db.recipes.find({"$text": {"$search": query}}))
-    return render_template("recipes.html", recipes=recipes_search)
+    recipes_sr = list(mongo.db.recipes.find({"$text": {"$search": query}}))
+    return render_template("recipes/recipes.html", recipes=recipes_sr)
 
 
 

@@ -1,59 +1,64 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Edit Bread Recipe</h1>
 <div class="row">
-  <form class="col s12" method="POST" action="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">
-    <div class="row">
-      <div class="input-field col s12">
-        <textarea id="textarea1" name="title" class="materialize-textarea" required></textarea>
-        <label for="textarea1">Title</label>
-      </div>
-    </div>
+  <h3 class="center-align">Edit recipe</h3>
+  <hr class="blackline">
 </div>
 
+<!-- Add recipes -->
 <div class="row">
-  
-    <div class="row">
-      <div class="input-field col s12">
-        <textarea id="textarea1" name="description" class="materialize-textarea" required></textarea>
-        <label for="textarea1">Description</label>
+  <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">
+      <!-- Recipe name -->
+      <div class="row">
+          <div class="input-field col s12">
+              <input id="recipe_name" name="recipe_name" value="{{recipe.title}}" type="text" pattern="^[^\s][A-Za-z0-9\s]{1,20}$" class="validate" required>
+              <label for="recipe_name">Recipe title</label>
+          </div>
       </div>
-    </div>
-  
-</div>
 
-<div class="row">
-  
-    <div class="row">
+      <!-- Description -->
+      <div class="row">
+        <div class="input-field col s12">
+            <textarea id="instructions" name="instructions" class="materialize-textarea validate" required>
+                {{- recipe.description -}}
+            </textarea>
+            <label for="instructions">Description</label>
+            <span class="helper-text" data-error="wrong" data-success="right">Write every new instruction on a new line..</span>
+        </div>
+    </div>
+
+     <!-- Ingredients  -->
+     <div class="row">
       <div class="input-field col s12">
-        <textarea id="textarea1" name="ingredients" class="materialize-textarea" required></textarea>
-        <label for="textarea1">Ingridients</label>
+          <textarea id="ingredients" name="ingredients" class="materialize-textarea validate" required>
+              {{- recipe.ingredients -}}
+          </textarea>
+          <label for="ingredients">Ingredients</label>
+          <span class="helper-text" data-error="wrong" data-success="right">Here you can update the ingredients option</span>
       </div>
-    </div>
-  
-</div>
-
-<div class="row">
-  
-    <div class="row">
-      <div class="input-field col s12">
-        <textarea id="textarea1" name="steps" class="materialize-textarea" required></textarea>
-        <label for="textarea1">Steps</label>
-      </div>
-    </div>
-  
-</div>
-
-
-  <div class="file-field input-field">
-    <div class="file-path-wrapper">
-      <label for="textarea1">Image_url</label>
-      <input id="image" name="image" type="url" pattern="https?://.+" class="validate" required>
-    </div>
   </div>
+<!--steps-->
+  <div class="row">
+    <div class="input-field col s12">
+        <textarea id="instructions" name="instructions" class="materialize-textarea validate" required>
+            {{- recipe.steps -}}
+        </textarea>
+        <label for="instructions">Steps</label>
+        <span class="helper-text" data-error="wrong" data-success="right">Here you can update the steps option</span>
+    </div>
+</div>
 
+<!-- Upload img URL -->
+<div class="row">
+  <div class="input-field col s12">
+      <input id="img_url" name="img_url" value="{{recipe.image}}" type="url" pattern="https?://.+" class="validate" required>
+      <label for="img_url">Image url</label>
+      <span class="helper-text" data-error="enter valid URL" data-success="right"></span>
+  </div>
+</div>
 
+<!-- Submit button -->
 <div class="row">
   <div class="col s12 center-align black">
       <button type="submit" class="btn-large black darken-1 text-shadow">

@@ -105,7 +105,7 @@ def profile(username):
     """fetch data from mongodb"""
     # Only users can acces profile
     if not session.get("user"):
-        return render_template("error_handlers/404.html")
+        return render_template("404.html")
 
     # grab the session user's username from db
     username = mongo.db.users.find_one(
@@ -130,7 +130,7 @@ def search():
     # Search for recipes based on query
     query = request.form.get("query")
     recipes_sr = list(mongo.db.recipes.find({"$text": {"$search": query}}))
-    return render_template("recipes/recipes.html", recipes=recipes_sr)
+    return render_template("recipes.html", recipes=recipes_sr)
 
 
 
@@ -155,7 +155,7 @@ def add_recipe():
     """ User is able to add recipes """
     # Only users can add recipes
     if not session.get("user"):
-        return render_template("error_handlers/404.html")
+        return render_template("404.html")
 
     # Adding recipe to db
     if request.method == "POST":
@@ -184,7 +184,7 @@ def edit_recipe(recipe_id):
     """ User is able to edit recipes """
     # Only registered users can add recipes
     if not session.get("user"):
-        return render_template("error_handlers/404.html")
+        return render_template("404.html")
 
     # edit recipe in mongodb
     if request.method == "POST":
@@ -212,6 +212,24 @@ def delete_recipe(recipe_id):
     mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
     flash("Recipe is succesfully deleted")
     return redirect(url_for("profile", username=session['user']))
+
+
+@app.errorhandler(404)
+def not_found():
+    """ user cant view if not logged in """
+    return render_template("404.html"), 404
+
+
+@app.errorhandler(500)
+def server_error():
+    """ user cant view if not logged in """
+    return render_template("500.html"), 500
+
+
+@app.errorhandler(403)
+def forbidden():
+    """ user cant view if not logged in """
+    return render_template("403.html"), 403
 
 
 @app.route("/logout")

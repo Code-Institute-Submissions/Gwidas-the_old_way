@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
-<!-- Title -->
+<!-- Title  -->
 <div class="row">
   <h3 class="center-align">Recipes</h3>
   <hr class="blackline">
 </div>
-<div class="container">
+<div class="container " id="photo-container">
   <!-- Search engine -->
   <div class="row">
       <div class="col s12">
@@ -26,12 +26,16 @@
       </div>
   </div>
 
+
+
+
+<!-- recipes -->
   {% if recipes|length > 0 %}
             <div class="row show-on-small hide-on-med-and-up">
                 {% for recipe in recipes %}
                     <div class="col s6 recipes-display">
                         <a href="{{ url_for('recipe', recipe_id=recipe._id) }}">
-                            <img class="img_recipe" src="{{ recipe.image}}" alt="recipe">
+                            <img class="img_recipe " src="{{ recipe.image}}" alt="recipe">
                             <span class="card-title recipes-title">{{ recipe.title }}</span>
                         </a>
                     </div>

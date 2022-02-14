@@ -10,6 +10,9 @@ $(document).ready(function(){
     M.updateTextFields();
   });
 
- 
+  $(document).ready(function(){
+    $('.materialboxed').materialbox();
+  });
+  
 
   

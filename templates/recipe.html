@@ -1,35 +1,39 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>This is recipe page </h1>
-
-
+<!--Recipe Title -->
 <div class="row">
-    <div class="col s12 m6">
-      <div class="card">
-        <div class="card-image">
-          <img src="{{ recipe.image }}">
+  <h3 class="center-align">{{recipe.title}}</h3>
+  <hr class="blackline">
+</div>
 
-          <span class="card-title">{{ recipe.title }}</span>
-          <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-        </div>
-        <div class="card-content">
-          <p>{{ recipe.description }}</p>
-        </div>
+<div class="container">
+  <!-- Image and info -->
+  <div class="row">
+      <div class="col s4">
+          <h6>Description: {{recipe.description}}</h6>
+          <h6>Time it takes: {{recipe.time_takes}}</h6>
+          <br>
+          <h6>Created by: {{recipe.created_by}}</h6>
       </div>
-    </div>
+      <div class="col s8"> 
+              <img class="img_recipe" src="{{recipe.image}}" alt="recipe_image">
+      </div>
   </div>
-  
-  {% endfor %}
-
-{% for recipe in recipes %}
-        {{ recipe.title }}<br>
-        {{ recipe.description }}<br>
-        {{ recipe.ingredients }}<br>
-        {{ recipe.steps }}<br>
-        {{ recipe.image }}<br>
-        {{ recipe.created_by }}<br>
-    {% endfor %}
+  <!-- Ingredients and steps -->
+  <div class="row">
+    <div class="col s4 custom-col">
+        <h4>Ingredients</h4>
+        <ul>
+            {% for list in recipe.ingredients.splitlines() %}
+                <li>
+                    <p><i class="fas fa-circle"></i> {{list}}</p>    
+                </li>
+            {% endfor %}
+        </ul> 
+    </div>
+    
+</div>
 
 {% endblock %}
     

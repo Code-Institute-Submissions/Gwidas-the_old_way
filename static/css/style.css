@@ -23,8 +23,32 @@ main {
     box-sizing: border-box;
   }
   
- 
+  #search-nav {
+    background-color: #fff;
+}
 
+.recipes-display {
+    text-align: justify;
+    margin-bottom: 20px;
+}
 
+.img_recipe {
+    display: block;
+    margin: 0;
+  }
+
+.recipes-title {
+    color: #000;
+    font-size: 17px;
+}
+
+img {
+  float: left;
+  width:  200px;
+  height: 200px;
+  object-fit: cover;
+  border: solid;
+  border-color: black;
+}
 
   

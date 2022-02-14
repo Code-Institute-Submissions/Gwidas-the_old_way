@@ -142,6 +142,19 @@ def recipes():
     return render_template("recipes.html", recipes=recipesdb)
 
 
+@app.route("/recipe/<recipe_id>")
+def recipe(recipe_id):
+    """ User is able to view recipe"""
+    # Find recipe on the basis of id
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+
+    # recipe id don't exist, show 404 error
+    if not recipe:
+        return render_template("error_handlers/404.html")
+
+    return render_template("recipe.html", recipe=recipe)
+
+
 
 # Create Recipe
 @app.route(
@@ -163,6 +176,7 @@ def add_recipe():
             "title": request.form.get("title"),
             "description": request.form.get("description"),
             "ingredients": request.form.get("ingredients"),
+            "time_takes": request.form.get("time_takes"),
             "steps": request.form.get("steps"),
             "image": request.form.get("image"),
             "created_by": session["user"],
@@ -192,6 +206,7 @@ def edit_recipe(recipe_id):
             "title": request.form.get("title"),
             "description": request.form.get("description"),
             "ingredients": request.form.get("ingredients"),
+            "time_takes": request.form.get("time_takes"),
             "steps": request.form.get("steps"),
             "image": request.form.get("img_url"),
             "created_by": session["user"],

@@ -193,11 +193,11 @@ def edit_recipe(recipe_id):
             "description": request.form.get("description"),
             "ingredients": request.form.get("ingredients"),
             "steps": request.form.get("steps"),
-            "image": request.form.get("image"),
+            "image": request.form.get("img_url"),
             "created_by": session["user"],
         }
 
-        mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, edit)
+        mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {"$set": edit})
         flash("Recipe is successfully edited")
         return redirect(url_for("profile", username=session["user"]))
 

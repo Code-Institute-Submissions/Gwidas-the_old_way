@@ -12,18 +12,18 @@
       <!-- Recipe name -->
       <div class="row">
           <div class="input-field col s12">
-              <input id="recipe_name" name="recipe_name" value="{{recipe.title}}" type="text" pattern="^[^\s][A-Za-z0-9\s]{1,20}$" class="validate" required>
-              <label for="recipe_name">Recipe title</label>
+              <input id="title" name="title" value="{{recipe.title}}" type="text" pattern="^[^\s][A-Za-z0-9\s]{1,20}$" class="validate" required>
+              <label for="title">title</label>
           </div>
       </div>
 
       <!-- Description -->
       <div class="row">
         <div class="input-field col s12">
-            <textarea id="instructions" name="instructions" class="materialize-textarea validate" required>
+            <textarea id="description" name="description" class="materialize-textarea validate" required>
                 {{- recipe.description -}}
             </textarea>
-            <label for="instructions">Description</label>
+            <label for="description">description</label>
             <span class="helper-text" data-error="wrong" data-success="right">Write every new instruction on a new line..</span>
         </div>
     </div>
@@ -34,17 +34,17 @@
           <textarea id="ingredients" name="ingredients" class="materialize-textarea validate" required>
               {{- recipe.ingredients -}}
           </textarea>
-          <label for="ingredients">Ingredients</label>
+          <label for="ingredients">ingredients</label>
           <span class="helper-text" data-error="wrong" data-success="right">Here you can update the ingredients option</span>
       </div>
   </div>
 <!--steps-->
   <div class="row">
     <div class="input-field col s12">
-        <textarea id="instructions" name="instructions" class="materialize-textarea validate" required>
+        <textarea id="steps" name="steps" class="materialize-textarea validate" required>
             {{- recipe.steps -}}
         </textarea>
-        <label for="instructions">Steps</label>
+        <label for="steps">steps</label>
         <span class="helper-text" data-error="wrong" data-success="right">Here you can update the steps option</span>
     </div>
 </div>

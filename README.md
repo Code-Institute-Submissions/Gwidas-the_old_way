@@ -1,8 +1,6 @@
-<h1 align="center"></h1>
 
-<span id="The Old Way"></span>
 
-![]()
+![The Old Way](static/images/mocupthe.png)
 
 
 

@@ -230,7 +230,7 @@ def delete_recipe(recipe_id):
 
 
 @app.errorhandler(404)
-def not_found():
+def not_found(e):
     """ user cant view if not logged in """
     return render_template("404.html"), 404
 

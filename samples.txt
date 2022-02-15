@@ -81,3 +81,8 @@
   </form>
 </div>
 <=================================================edit_recipe_end==========================================================>
+
+
+
+
+mongo.db.recipes.create_index([("title", "text"),("description", "text"),("ingredients", "text")])

@@ -34,7 +34,7 @@ body {
     border-radius: 25px;
     border: solid;
     position: relative;
-    margin-top: 3rem;
+    margin-bottom: 10rem;
 }
 
 .reset {
@@ -47,4 +47,12 @@ body {
     border: solid;
     border-radius: 25px;
 }
+
+.position_image {
+    margin-top: 5rem;
+}
+
+
+
+
 

@@ -12,9 +12,12 @@
   <div class="row">
       <div class="col s4">
           <h6>Description: {{recipe.description}}</h6>
+          <br>
           <h6>Time it takes: {{recipe.time_takes}}</h6>
           <br>
-          <h6>Created by: {{recipe.created_by}}</h6>
+          <h6>Steps: {{recipe.steps}}</h6>
+          
+          
       </div>
       <div class="col s8 position_image"> 
               <img class="img_recipe" src="{{recipe.image}}" alt="recipe_image">
@@ -32,7 +35,9 @@
             {% endfor %}
         </ul> 
     </div>
-    
+    <div>
+        <h6>Created by: {{recipe.created_by}}</h6>
+    </div>
 </div>
 
 {% endblock %}

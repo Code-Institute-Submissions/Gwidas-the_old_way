@@ -29,7 +29,7 @@ body {
 
 }
 
-.recipe-back, .add-background {
+.recipe-back, .add-background, .card-panel {
     background-color: wheat;
     border-radius: 25px;
     border: solid;
@@ -51,6 +51,8 @@ body {
 .position_image {
     margin-top: 5rem;
 }
+
+
 
 
 

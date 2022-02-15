@@ -2,12 +2,12 @@
 {% block content %}
 
 <div class="row">
-  <h3 class="center-align black">Edit recipe</h3>
+  <h3 class="center-align">Edit recipe</h3>
   <hr class="blackline">
 </div>
 
 <!-- Add recipes -->
-<div class="row">
+<div class="row add-background">
   <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">
       <!-- Recipe name -->
       <div class="row">
